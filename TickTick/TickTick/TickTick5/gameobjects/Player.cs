@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
@@ -12,6 +13,9 @@ partial class Player : AnimatedGameObject
     protected bool exploded;
     protected bool finished;
     protected bool walkingOnIce, walkingOnHot;
+    List<Bomb> bombList;
+    
+    
     public Player(Vector2 start) : base(2, "player")
     {
         this.LoadAnimation("Sprites/Player/spr_idle", "idle", true); 
@@ -115,6 +119,20 @@ partial class Player : AnimatedGameObject
         this.PlayAnimation("die");
     }
 
+     public void Shoot()
+	    {
+	        Bomb bomb = new Bomb();
+	       bomb.Position= new Vector2(this.Position.X, this.Position.Y - BoundingBox.Height/2);
+           if(Mirror)
+	            bomb.Velocity *= -1;
+	        else 
+	            bomb.Velocity *= 1;
+	
+	        bombList.Add(bomb);
+	        GameWorld.Add(bomb);
+	
+	    }
+
     public void Sounds()
     {
         Random r = new Random();
@@ -174,6 +192,12 @@ partial class Player : AnimatedGameObject
         this.PlayAnimation("celebrate");
         GameEnvironment.AssetManager.PlaySound("Sounds/snd_player_won");
     }
+   
+     public List<Bomb> Bombs
+	    {
+	        get { return bombList; }
+	    }
+    
     public Vector2 Playerpos
     {
         get { return this.position; }

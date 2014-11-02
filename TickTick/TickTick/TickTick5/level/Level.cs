@@ -58,7 +58,6 @@ partial class Level : GameObjectList
             return true;
         }
     }
-
     public bool GameOver
     {
         get

@@ -15,6 +15,7 @@ public class GameEnvironment : Game
     protected static Random random;
     protected static AssetManager assetManager;
     protected static GameSettingsManager gameSettingsManager;
+    public static Camera2D camera;
 
     public GameEnvironment()
     {
@@ -26,6 +27,7 @@ public class GameEnvironment : Game
         random = new Random();
         assetManager = new AssetManager(Content);
         gameSettingsManager = new GameSettingsManager();
+        camera = new Camera2D();
     }
 
     public static Point Screen
@@ -52,6 +54,11 @@ public class GameEnvironment : Game
     public static GameSettingsManager GameSettingsManager
     {
         get { return gameSettingsManager; }
+    }
+
+    public static Camera2D Camera
+    {
+        get { return camera; }
     }
 
     public void SetFullScreen(bool fullscreen = true)

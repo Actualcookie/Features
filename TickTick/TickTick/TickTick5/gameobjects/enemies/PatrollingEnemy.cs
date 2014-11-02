@@ -38,7 +38,25 @@ class PatrollingEnemy : AnimatedGameObject
             }
         }
         this.CheckPlayerCollision();
+        this.CheckBulletCollision();
     }
+     public void CheckBulletCollision()
+	    {
+	
+         Player player = GameWorld.Find("player") as Player;
+	        foreach (Bomb obj in player.Bombs)
+	            if (this.CollidesWith(obj) && this.visible && this.living && obj.Visible)
+	            {
+	                Death();
+                    obj.Visible = false;
+	            }
+	    }
+	    public void Death()
+	    {
+	        this.velocity.Y += 110;
+	        this.PlayAnimation("explode");
+	        this.living = false;
+	    }
 
     public void CheckPlayerCollision()
     {

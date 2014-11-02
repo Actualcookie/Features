@@ -45,6 +45,7 @@ partial class Level : GameObjectList
 
     private Tile LoadTile(char tileType, int x, int y)
     {
+
         switch (tileType)
         {
             case '.':
@@ -101,15 +102,6 @@ partial class Level : GameObjectList
         return new Tile("", TileType.Background);
     }
    
-    private Tile LoadBomb(int x, int y)
-    {
-        TileField tiles = this.Find("tiles") as TileField;
-        Vector2 startPosition = new Vector2(((float)x + 0.5f) * tiles.CellWidth, (y + 1) * tiles.CellHeight);
-        Player player = new Player(startPosition);
-        this.Add(player);
-        return new Tile("", TileType.Background);
-    }
-
     private Tile LoadFlameTile(int x, int y, char enemyType)
     {
         GameObjectList enemies = this.Find("enemies") as GameObjectList;

@@ -25,6 +25,8 @@ public class GameStateManager : IGameLoopObject
 
     public void SwitchTo(string name)
     {
+        GameEnvironment.camera.Reset();
+
         if (gameStates.ContainsKey(name))
             currentGameState = gameStates[name];
         else
