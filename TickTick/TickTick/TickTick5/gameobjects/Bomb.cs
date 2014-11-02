@@ -37,7 +37,6 @@ using Microsoft.Xna.Framework.Input;
     public override void Update(GameTime gameTime)
     {
         Player player = GameWorld.Find("player") as Player;
-        shoot=false;
         base.Update(gameTime);
          if (shoot)
         {
