@@ -92,5 +92,6 @@ public class GameObjectGrid : GameObject
         base.Reset();
         foreach (GameObject obj in grid)
             obj.Reset();
-    }
+ 
+   }
 }

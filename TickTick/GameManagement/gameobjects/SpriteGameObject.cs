@@ -7,17 +7,34 @@ public class SpriteGameObject : GameObject
     protected SpriteSheet sprite;
     protected Vector2 origin;
 
-    public bool movesWithCamera;
+    public bool cameraMoving;
 	
 	    public SpriteGameObject(string assetname, int layer = 0, string id = "", int sheetIndex = 0)
 	        : base(layer, id)
       {
-	        movesWithCamera = false;
+	        cameraMoving = false;
 	        if (assetname != "")
 	            sprite = new SpriteSheet(assetname, sheetIndex);
           else
             sprite = null;
-	    }    
+	    }
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            bool inView = BoundingBox.Intersects(GameEnvironment.Camera.CameraView);
+
+            if (!visible || sprite == null)
+                return;
+
+            if (!cameraMoving)
+            {
+                sprite.Draw(spriteBatch, this.GlobalPosition - new Vector2(GameEnvironment.Camera.CameraView.X, GameEnvironment.Camera.CameraView.Y), origin);
+            }
+            else
+            {
+                sprite.Draw(spriteBatch, this.GlobalPosition, origin);
+            }
+        }
+
 
     public SpriteSheet Sprite
     {
@@ -37,22 +54,6 @@ public class SpriteGameObject : GameObject
         }
     }
    
-    public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-	    {
-        bool inView = BoundingBox.Intersects(GameEnvironment.Camera.CameraView);
-	
-	        if (!visible || sprite == null)
-	            return;
-	
-	        if (!movesWithCamera)
-	        {
-	            sprite.Draw(spriteBatch, this.GlobalPosition - new Vector2(GameEnvironment.Camera.CameraView.X, GameEnvironment.Camera.CameraView.Y), origin);
-	        }
-	        else
-	        {
-	            sprite.Draw(spriteBatch, this.GlobalPosition, origin);
-	        }
-	    }
    
     public int Height
     {
