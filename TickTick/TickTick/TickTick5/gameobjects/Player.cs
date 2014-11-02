@@ -8,6 +8,7 @@ partial class Player : AnimatedGameObject
     protected bool isOnTheGround;
     protected float previousYPosition;
     protected bool isAlive;
+    protected bool shoot;
     protected bool exploded;
     protected bool finished;
     protected bool walkingOnIce, walkingOnHot;

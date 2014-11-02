@@ -128,6 +128,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Camera.cs" />
+    <Compile Include="gameobjects\Bomb.cs" />
     <Compile Include="gameobjects\Clouds.cs" />
     <Compile Include="gameobjects\enemies\PlayerFollowingEnemy.cs" />
     <Compile Include="gameobjects\enemies\Rocket.cs" />
@@ -147,6 +149,7 @@
     <Compile Include="level\LevelLoading.cs" />
     <Compile Include="menu\Button.cs" />
     <Compile Include="menu\LevelButton.cs" />
+    <Compile Include="Scene2DNode.cs" />
     <Compile Include="states\GameOverState.cs" />
     <Compile Include="states\HelpState.cs" />
     <Compile Include="states\LevelFinishedState.cs" />
