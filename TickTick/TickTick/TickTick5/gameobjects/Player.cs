@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Input;
@@ -8,11 +9,9 @@ partial class Player : AnimatedGameObject
     protected bool isOnTheGround;
     protected float previousYPosition;
     protected bool isAlive;
-    protected bool shoot;
     protected bool exploded;
     protected bool finished;
     protected bool walkingOnIce, walkingOnHot;
-
     public Player(Vector2 start) : base(2, "player")
     {
         this.LoadAnimation("Sprites/Player/spr_idle", "idle", true); 
@@ -21,7 +20,6 @@ partial class Player : AnimatedGameObject
         this.LoadAnimation("Sprites/Player/spr_celebrate@14", "celebrate", false, 0.05f);
         this.LoadAnimation("Sprites/Player/spr_die@5", "die", false);
         this.LoadAnimation("Sprites/Player/spr_explode@5x5", "explode", false, 0.04f); 
-
         startPosition = start;
         Reset();
     }
@@ -55,14 +53,16 @@ partial class Player : AnimatedGameObject
             velocity.X = 0.0f;
         if (velocity.X != 0.0f)
             Mirror = velocity.X < 0;
-        if ((inputHelper.KeyPressed(Keys.Space) || inputHelper.KeyPressed(Keys.Up)) && isOnTheGround)
+        if (inputHelper.KeyPressed(Keys.Up) && isOnTheGround)
             Jump();
+        if (inputHelper.MouseLeftButtonPressed()&&  BoundingBox.Contains((int)inputHelper.MousePosition.X, (int)inputHelper.MousePosition.Y))
+            Sounds();
     }
 
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
-        if (!finished && isAlive)
+       if (!finished && isAlive)
         {
             if (isOnTheGround)
                 if (velocity.X == 0)
@@ -115,6 +115,48 @@ partial class Player : AnimatedGameObject
         this.PlayAnimation("die");
     }
 
+    public void Sounds()
+    {
+        Random r = new Random();
+        int x = r.Next(0, 11);
+        switch (x)
+        {
+            case 1:
+                GameEnvironment.AssetManager.PlaySound("Sounds/snd_player_die");
+                break;
+            case 2:
+                GameEnvironment.AssetManager.PlaySound("Sounds/snd_player_jump");
+                break;
+            case 3:
+                GameEnvironment.AssetManager.PlaySound("Sounds/game_over");
+                    break;
+            case 4:
+                    GameEnvironment.AssetManager.PlaySound("Sounds/gotta_hurt");
+                    break;
+            case 5:
+                    GameEnvironment.AssetManager.PlaySound("Sounds/hail");
+                    break;
+            case 6:
+                    GameEnvironment.AssetManager.PlaySound("Sounds/out_of_gum_x");
+                    break;
+            case 7:
+                    GameEnvironment.AssetManager.PlaySound("Sounds/gotta_hurt");
+                    break;
+            case 8:
+                    GameEnvironment.AssetManager.PlaySound("Sounds/be_back2");
+                    break;
+            case 9:
+                    GameEnvironment.AssetManager.PlaySound("Sounds/ugly");
+                    break;
+            case 10:
+                    GameEnvironment.AssetManager.PlaySound("Sounds/why_not");
+                    break;
+            default:
+                break;
+
+        }
+    }
+
     public bool IsAlive
     {
         get { return isAlive; }
@@ -131,5 +173,9 @@ partial class Player : AnimatedGameObject
         velocity.X = 0.0f;
         this.PlayAnimation("celebrate");
         GameEnvironment.AssetManager.PlaySound("Sounds/snd_player_won");
+    }
+    public Vector2 Playerpos
+    {
+        get { return this.position; }
     }
 }

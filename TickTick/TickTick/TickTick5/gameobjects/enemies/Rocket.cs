@@ -4,6 +4,7 @@ class Rocket : AnimatedGameObject
 {
     protected double spawnTime;
     protected Vector2 startPosition;
+    public bool die;
 
     public Rocket(bool moveToLeft, Vector2 startPosition)
     {
@@ -16,6 +17,7 @@ class Rocket : AnimatedGameObject
 
     public override void Reset()
     {
+        this.die = false;
         this.Visible = false;
         this.position = startPosition;
         this.velocity = Vector2.Zero;
@@ -36,6 +38,10 @@ class Rocket : AnimatedGameObject
             this.velocity.X *= -1f;
         CheckPlayerCollision();
         // check if we are outside the screen
+        if(die)
+        {
+            Reset();
+        }
         Rectangle screenBox = new Rectangle(0, 0, GameEnvironment.Screen.X, GameEnvironment.Screen.Y);
         if (!screenBox.Intersects(this.BoundingBox))
             this.Reset();
