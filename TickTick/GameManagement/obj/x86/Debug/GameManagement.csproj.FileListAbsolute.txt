@@ -1,6 +1,0 @@
-D:\De echte Tick Tick\Features\TickTick\GameManagement\bin\x86\Debug\GameManagement.dll
-D:\De echte Tick Tick\Features\TickTick\GameManagement\bin\x86\Debug\GameManagement.pdb
-D:\De echte Tick Tick\Features\TickTick\GameManagement\obj\x86\Debug\GameManagement.csprojResolveAssemblyReference.cache
-D:\De echte Tick Tick\Features\TickTick\GameManagement\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-D:\De echte Tick Tick\Features\TickTick\GameManagement\obj\x86\Debug\GameManagement.dll
-D:\De echte Tick Tick\Features\TickTick\GameManagement\obj\x86\Debug\GameManagement.pdb

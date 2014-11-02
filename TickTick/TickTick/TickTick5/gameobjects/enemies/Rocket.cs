@@ -45,14 +45,17 @@ class Rocket : AnimatedGameObject
     {
         Player player = GameWorld.Find("player") as Player;
         if (this.CollidesWith(player) && this.Visible)
-        {
-            if (player.Position.Y + 20 < this.position.Y)
-            {
-                this.Reset();
-            }
-            else player.Die(false);
-        }
-            
+<<<<<<< HEAD
+            Rocketjump();
+=======
+            player.Die(false);
+
+>>>>>>> origin/master
+    }
+
+    public void Rocketjump()
+    {
+        
     }
     
 }

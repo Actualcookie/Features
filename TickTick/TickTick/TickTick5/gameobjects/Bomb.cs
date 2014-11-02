@@ -12,6 +12,6 @@ class Bomb: AnimatedGameObject
     {
         soundeffect = Content.Load<SoundEffect>("kaboom");
 
-   }
+    }
 
-   }
+    }
