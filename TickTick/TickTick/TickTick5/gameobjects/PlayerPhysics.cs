@@ -1,14 +1,14 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-partial class Player :  AnimatedGameObject
+partial class Player : AnimatedGameObject
 {
     public void Jump(float speed = 1100)
     {
         velocity.Y = -speed;
         GameEnvironment.AssetManager.PlaySound("Sounds/snd_player_jump");
     }
-    
+
     private void DoPhysics()
     {
         if (!exploded)
@@ -58,7 +58,7 @@ partial class Player :  AnimatedGameObject
                     }
                 }
                 if (tileType == TileType.Normal || isOnTheGround)
-                    position.Y += depth.Y + 1;             
+                    position.Y += depth.Y + 1;
             }
         position = new Vector2((float)Math.Floor(position.X), (float)Math.Floor(position.Y));
         previousYPosition = position.Y;
