@@ -11,8 +11,8 @@ partial class Level : GameObjectList
         GameObjectList backgrounds = new GameObjectList(0, "backgrounds");
         SpriteGameObject background_main = new SpriteGameObject("Backgrounds/spr_sky");
         background_main.Position = new Vector2(0, GameEnvironment.Screen.Y - background_main.Height);
+        background_main.cameraMoving = true;
         backgrounds.Add(background_main);
-
         // add a few random mountains
         for (int i = 0; i < 5; i++)
         {
@@ -30,10 +30,14 @@ partial class Level : GameObjectList
         this.Add(timerBackground);
         TimerGameObject timer = new TimerGameObject(101, "timer");
         timer.Position = new Vector2(25, 30);
+        timerBackground.cameraMoving = true;
         this.Add(timer);
 
+        timer.OriginalTimeLeft = tijd;
+       
         quitButton = new Button("Sprites/spr_button_quit", 100);
         quitButton.Position = new Vector2(GameEnvironment.Screen.X - quitButton.Width - 10, 10);
+        quitButton.cameraMoving = true;
         this.Add(quitButton);
 
 

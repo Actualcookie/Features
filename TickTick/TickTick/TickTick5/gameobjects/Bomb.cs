@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 	        float speedbomb;
           
            public Bomb()
-	            :base("Sprites/Player/", 0, "bullet")
+	            :base("Sprites/Player/Bomb", 0, "bomb")
 	        {
 	            speedbomb = 600f;
 	            Velocity = new Vector2(speedbomb, 0);

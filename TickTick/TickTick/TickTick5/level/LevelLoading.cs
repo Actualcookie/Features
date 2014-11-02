@@ -1,42 +1,61 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System;
 using Microsoft.Xna.Framework;
 
 partial class Level : GameObjectList
 {
+   int levelWidth, cellWidth, cellHeight;
+   TimeSpan tijd;
+   int annoyed;
+
     public void LoadTiles(string path)
     {
         int width;
+        cellWidth= 76;
+        cellHeight = 55;
+        
         List<string> textlines = new List<string>();
         StreamReader fileReader = new StreamReader(path);
         string line = fileReader.ReadLine();
+        
         width = line.Length;
+        levelWidth = width;
         while (line != null)
         {
             textlines.Add(line);
             line = fileReader.ReadLine();
         }
-        TileField tiles = new TileField(textlines.Count - 1, width, 1, "tiles");
+        TileField tiles = new TileField(textlines.Count - 2, width, 1, "tiles");
 
-        GameObjectList hintfield = new GameObjectList(100);
-        this.Add(hintfield);
-        string hint = textlines[textlines.Count - 1];
+       GameObjectList hintfield = new GameObjectList(100);
+	        this.Add(hintfield);
+            string hint = textlines[textlines.Count - 2];
+	       
         SpriteGameObject hint_frame = new SpriteGameObject("Overlays/spr_frame_hint", 1);
-        hintfield.Position = new Vector2((GameEnvironment.Screen.X - hint_frame.Width) / 2, 10);
-        hintfield.Add(hint_frame);
-        TextGameObject hintText = new TextGameObject("Fonts/HintFont", 2);
-        hintText.Text = textlines[textlines.Count - 1];
-        hintText.Position = new Vector2(120, 25);
-        hintText.Color = Color.Black;
-        hintfield.Add(hintText);
+            hintfield.Position = new Vector2((GameEnvironment.Screen.X - hint_frame.Width) / 2, 10);
+	        hint_frame.cameraMoving = true;
+	        hintfield.Add(hint_frame);
+           
+            annoyed= int.Parse (textlines.Length(0));
+            tijd = TimeSpan.FromSeconds(annoyed);
+	 	 	
+	        TextGameObject hintText = new TextGameObject("Fonts/HintFont", 2);
+	        hintText.Text = hint;
+            hintText.Position = new Vector2(120, 25);
+            hintText.Color = Color.Black;
+        
+       
+        
         VisibilityTimer hintTimer = new VisibilityTimer(hintfield, 1, "hintTimer");
         this.Add(hintTimer);
 
         this.Add(tiles);
-        tiles.CellWidth = 72;
-        tiles.CellHeight = 55;
+        tiles.CellWidth = cellWidth;
+        tiles.CellHeight = cellHeight;
+       
         for (int x = 0; x < width; ++x)
-            for (int y = 0; y < textlines.Count - 1; ++y)
+            for (int y = 0; y < textlines.Count - 2; ++y)
             {
                 Tile t = LoadTile(textlines[y][x], x, y);
                 tiles.Add(t, x, y);

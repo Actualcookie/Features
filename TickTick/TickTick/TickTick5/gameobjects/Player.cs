@@ -13,6 +13,7 @@ partial class Player : AnimatedGameObject
     protected bool exploded;
     protected bool finished;
     protected bool walkingOnIce, walkingOnHot;
+    protected bool bombs;
     List<Bomb> bombList;
     
     
@@ -36,6 +37,7 @@ partial class Player : AnimatedGameObject
         isAlive = true;
         exploded = false;
         finished = false;
+        bombs = false;
         walkingOnIce = false;
         walkingOnHot = false;
         this.PlayAnimation("idle");
@@ -50,9 +52,17 @@ partial class Player : AnimatedGameObject
         if (!isAlive)
             return;
         if (inputHelper.IsKeyDown(Keys.Left))
+        {
             velocity.X = -walkingSpeed;
+            if (this.position.X == GameEnvironment.Screen.X / 2)
+                MoveCameraView();
+        }
         else if (inputHelper.IsKeyDown(Keys.Right))
+        {
             velocity.X = walkingSpeed;
+            if (this.position.X == GameEnvironment.Screen.X / 2)
+                MoveCameraView();
+        }
         else if (!walkingOnIce && isOnTheGround)
             velocity.X = 0.0f;
         if (velocity.X != 0.0f)
@@ -61,6 +71,8 @@ partial class Player : AnimatedGameObject
             Jump();
         if (inputHelper.MouseLeftButtonPressed()&&  BoundingBox.Contains((int)inputHelper.MousePosition.X, (int)inputHelper.MousePosition.Y))
             Sounds();
+        if (inputHelper.KeyPressed(Keys.Space) && !bombs)
+            Shoot();
     }
 
     public override void Update(GameTime gameTime)
@@ -102,6 +114,12 @@ partial class Player : AnimatedGameObject
         position.Y += 15;
         this.PlayAnimation("explode");
     }
+
+    public void MoveCameraView()
+	 	 	    {
+ 	 	          GameEnvironment.camera.CameraView = new Rectangle((int)this.position.X, 0, GameEnvironment.Screen.X, GameEnvironment.Screen.Y);
+	 	 	    }
+	 	 	
 
     public void Die(bool falling)
     {
